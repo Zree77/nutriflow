@@ -1,0 +1,302 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@import "tailwindcss";
+
+:root {
+  --primary: #4DB552;
+  --primary-hover: #3F9A45;
+  --primary-light: #EAF7EB;
+  --primary-background: #F5FBEFCC;
+
+  --secondary: #006E1D;
+  --secondary-hover: #57B63B;
+  --secondary-light: #F2FBF3;
+
+  --neutral-bg: #FAFAF7;
+  --neutral-surface: #FFFFFF;
+  --neutral-border: #E5E7EB;
+
+  --text-primary: #1F2937;
+  --text-secondary: #6B7280;
+
+  --status-success: #22C55E;
+  --status-warning: #F59E0B;
+  --status-error: #EF4444;
+}
+
+@theme {
+  --font-sans: 'Inter', sans-serif;
+  --font-newsreader: 'Newsreader', serif;
+  --font-playfair: 'Playfair Display', serif;
+  --font-dmsans: 'DM Sans', sans-serif;
+
+  --color-primary: #4DB552;
+  --color-primary-hover: #3F9A45;
+  --color-primary-light: #EAF7EB;
+  --color-primary-background: #F5FBEFCC;
+
+  --color-secondary: #006E1D;
+  --color-secondary-hover: #57B63B;
+  --color-secondary-light: #F2FBF3;
+
+  --color-neutral-bg: #FAFAF7;
+  --color-neutral-surface: #FFFFFF;
+  --color-neutral-border: #E5E7EB;
+
+  --color-text-primary: #1F2937;
+  --color-text-secondary: #6B7280;
+
+  --color-status-success: #22C55E;
+  --color-status-warning: #F59E0B;
+  --color-status-error: #EF4444;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-fast: float-fast 5s ease-in-out infinite;
+  --animate-float-slow: float-slow 7s ease-in-out infinite;
+  --animate-pulse-ring: pulse-ring 4s ease-in-out infinite;
+  --animate-shadow-breathe: shadow-breathe 6s ease-in-out infinite;
+  --animate-spin-slow: spin-cw 25s linear infinite;
+  --animate-spin-reverse-slow: spin-ccw 30s linear infinite;
+  --animate-drift-dot-1: drift-dot-1 12s ease-in-out infinite;
+  --animate-drift-dot-2: drift-dot-2 15s ease-in-out infinite;
+  --animate-drift-dot-3: drift-dot-3 18s ease-in-out infinite;
+  --animate-marquee: marquee 40s linear infinite;
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0px) translateZ(0);
+    }
+
+    50% {
+      transform: translateY(-16px) translateZ(0);
+    }
+  }
+
+  @keyframes float-fast {
+
+    0%,
+    100% {
+      transform: translateY(0px) translateX(0px) translateZ(0);
+    }
+
+    50% {
+      transform: translateY(-8px) translateX(4px) translateZ(0);
+    }
+  }
+
+  @keyframes float-slow {
+
+    0%,
+    100% {
+      transform: translateY(0px) translateX(0px) translateZ(0);
+    }
+
+    50% {
+      transform: translateY(-12px) translateX(-6px) translateZ(0);
+    }
+  }
+
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(0.95);
+      opacity: 0.15;
+    }
+
+    50% {
+      transform: scale(1.1);
+      opacity: 0.35;
+    }
+
+    100% {
+      transform: scale(0.95);
+      opacity: 0.15;
+    }
+  }
+
+  @keyframes shadow-breathe {
+
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 0.25;
+    }
+
+    50% {
+      transform: scale(0.85);
+      opacity: 0.12;
+    }
+  }
+
+  @keyframes spin-cw {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes spin-ccw {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+
+  @keyframes drift-dot-1 {
+
+    0%,
+    100% {
+      transform: translate(0, 0);
+    }
+
+    33% {
+      transform: translate(15px, -15px);
+    }
+
+    66% {
+      transform: translate(-10px, 10px);
+    }
+  }
+
+  @keyframes drift-dot-2 {
+
+    0%,
+    100% {
+      transform: translate(0, 0);
+    }
+
+    33% {
+      transform: translate(-20px, 10px);
+    }
+
+    66% {
+      transform: translate(15px, -20px);
+    }
+  }
+
+  @keyframes drift-dot-3 {
+
+    0%,
+    100% {
+      transform: translate(0, 0);
+    }
+
+    33% {
+      transform: translate(10px, 20px);
+    }
+
+    66% {
+      transform: translate(-15px, -10px);
+    }
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-25%);
+    }
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}
+
+/* Marquee track — GPU compositor only, zero paint cost */
+.marquee-track {
+  animation: marquee 40s linear infinite;
+  will-change: transform;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Kill ALL animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.dot-grid {
+  background-image: radial-gradient(rgba(21, 70, 11, 0.034) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+}
+
+.noise-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  pointer-events: none;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html.lenis,
+html.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+html.lenis,
+html.lenis-smooth body {
+  height: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Butter-Smooth 3D Card Flipping utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flip-card-inner {
+  width: 100%;
+  height: 100%;
+  transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  transform: rotateY(0deg);
+}
+
+.group:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
