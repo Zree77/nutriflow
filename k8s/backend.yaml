@@ -1,0 +1,91 @@
+# Non-sensitive config. Values here match backend/config/constants.js defaults.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+data:
+  PORT: "8000"
+  GEMINI_MODEL: "gemini-1.5-flash"
+  KITCHEN_LAT: "9.9816"
+  KITCHEN_LNG: "76.2999"
+  FRONTEND_IMAGE_BASE_URL: "http://localhost:5173"
+---
+# TEMPLATE ONLY -- do not commit real values here. Create the actual secret
+# out-of-band instead:
+#   kubectl create secret generic backend-secret \
+#     --from-literal=MONGO_URI='...' \
+#     --from-literal=JWT_SECRET='...' \
+#     --from-literal=GEMINI_API_KEY='...' \
+#     --from-literal=MESSAGECENTRAL_AUTH_TOKEN='...' \
+#     --from-literal=MESSAGECENTRAL_CUSTOMER_ID='...'
+apiVersion: v1
+kind: Secret
+metadata:
+  name: backend-secret
+type: Opaque
+stringData:
+  MONGO_URI: "CHANGE-ME"
+  JWT_SECRET: "CHANGE-ME"
+  GEMINI_API_KEY: "CHANGE-ME"
+  MESSAGECENTRAL_AUTH_TOKEN: "CHANGE-ME"
+  MESSAGECENTRAL_CUSTOMER_ID: "CHANGE-ME"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nutriflow-backend
+  labels:
+    app: nutriflow-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nutriflow-backend
+  template:
+    metadata:
+      labels:
+        app: nutriflow-backend
+    spec:
+      containers:
+        - name: backend
+          # Jenkins updates this tag on every push -- see Jenkinsfile.
+          image: 658469473117.dkr.ecr.ap-south-1.amazonaws.com/nutriflow-backend:CHANGE-ME
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: backend-config
+            - secretRef:
+                name: backend-secret
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+          readinessProbe:
+            httpGet:
+              path: /nutriflow
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /nutriflow
+              port: 8000
+            initialDelaySeconds: 20
+            periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nutriflow-backend
+spec:
+  selector:
+    app: nutriflow-backend
+  ports:
+    - port: 80
+      targetPort: 8000
+  type: ClusterIP
+

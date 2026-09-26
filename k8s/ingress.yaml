@@ -1,0 +1,33 @@
+# Requires the AWS Load Balancer Controller to be installed on the cluster first
+# (item #4 in your remaining-work list) -- without it, this Ingress resource
+# will sit with no address and no ALB will actually be provisioned.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nutriflow-ingress
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    # Add this once you have a cert in ACM to terminate TLS at the ALB:
+    # alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
+    # alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-south-1:658469473117:certificate/CHANGE-ME
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /nutriflow
+            pathType: Prefix
+            backend:
+              service:
+                name: nutriflow-backend
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nutriflow-frontend
+                port:
+                  number: 80
+

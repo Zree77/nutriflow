@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nutriflow-frontend
+  labels:
+    app: nutriflow-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nutriflow-frontend
+  template:
+    metadata:
+      labels:
+        app: nutriflow-frontend
+    spec:
+      containers:
+        - name: frontend
+          # Jenkins updates this tag on every push -- see Jenkinsfile.
+          # NOTE: VITE_API_URL is baked in at image build time, so changing
+          # the backend URL means rebuilding this image, not editing this file.
+          image: 658469473117.dkr.ecr.ap-south-1.amazonaws.com/nutriflow-frontend:CHANGE-ME
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 250m
+              memory: 128Mi
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nutriflow-frontend
+spec:
+  selector:
+    app: nutriflow-frontend
+  ports:
+    - port: 80
+      targetPort: 80
+  type: ClusterIP
+
