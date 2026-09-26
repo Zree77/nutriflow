@@ -10,26 +10,6 @@ data:
   KITCHEN_LNG: "76.2999"
   FRONTEND_IMAGE_BASE_URL: "http://localhost:5173"
 ---
-# TEMPLATE ONLY -- do not commit real values here. Create the actual secret
-# out-of-band instead:
-#   kubectl create secret generic backend-secret \
-#     --from-literal=MONGO_URI='...' \
-#     --from-literal=JWT_SECRET='...' \
-#     --from-literal=GEMINI_API_KEY='...' \
-#     --from-literal=MESSAGECENTRAL_AUTH_TOKEN='...' \
-#     --from-literal=MESSAGECENTRAL_CUSTOMER_ID='...'
-apiVersion: v1
-kind: Secret
-metadata:
-  name: backend-secret
-type: Opaque
-stringData:
-  MONGO_URI: "CHANGE-ME"
-  JWT_SECRET: "CHANGE-ME"
-  GEMINI_API_KEY: "CHANGE-ME"
-  MESSAGECENTRAL_AUTH_TOKEN: "CHANGE-ME"
-  MESSAGECENTRAL_CUSTOMER_ID: "CHANGE-ME"
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
