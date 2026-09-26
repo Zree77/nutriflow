@@ -49,7 +49,7 @@ spec:
       containers:
         - name: backend
           # Jenkins updates this tag on every push -- see Jenkinsfile.
-          image: 658469473117.dkr.ecr.ap-south-1.amazonaws.com/nutriflow-backend:CHANGE-ME
+          image: 658469473117.dkr.ecr.ap-south-1.amazonaws.com/nutriflow-backend:4
           ports:
             - containerPort: 8000
           envFrom:
