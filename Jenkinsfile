@@ -19,7 +19,7 @@ pipeline {
 
         // Backend URL reachable from the browser, baked into the frontend
         // bundle at build time (Vite). Update once you have a real ALB/domain.
-        VITE_API_URL   = 'https://CHANGE-ME.example.com'
+        VITE_API_URL   = 'http://k8s-default-nutriflo-9414abcb85-741306382.ap-south-1.elb.amazonaws.com/nutriflow'
 
         SONARQUBE      = 'SonarQube'
         SONAR_SCANNER  = 'sonar-scanner'
