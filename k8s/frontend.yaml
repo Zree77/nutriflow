@@ -19,7 +19,7 @@ spec:
           # Jenkins updates this tag on every push -- see Jenkinsfile.
           # NOTE: VITE_API_URL is baked in at image build time, so changing
           # the backend URL means rebuilding this image, not editing this file.
-          image: 658469473117.dkr.ecr.ap-south-1.amazonaws.com/nutriflow-frontend:6
+          image: 658469473117.dkr.ecr.ap-south-1.amazonaws.com/nutriflow-frontend:7
           ports:
             - containerPort: 80
           resources:
